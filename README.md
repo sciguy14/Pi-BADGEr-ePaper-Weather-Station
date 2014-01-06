@@ -23,8 +23,8 @@ This folder contains the Arduino source code that should be loaded onto the BADG
 These are the 3D-printed design files for the BADGEr hanging aparatus. They were created in sketchup, and you may want to tweak them to make it easier to hang the BADGEr unit from whatever you desire.
 ### /Weather Checker
 This folder contains the Python file that should be placed in the home directory on your Raspberry Pi. It includes configuration options.
-### /Weather Images
-These are weather images that are used by the Yahoo Weather API. I have already converted them to WIF files that can be displayed on BADGEr. You just need to put them on the SD card that goes in BADGEr.
+### /BADGEr SD Card
+These are font files and weather images that are used by the Yahoo Weather API. I have already converted them to WIF files that can be displayed on BADGEr. You just need to put the contents of this folder on the SD card that goes in BADGEr.
 
 License
 -------
