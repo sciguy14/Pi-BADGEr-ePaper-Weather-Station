@@ -4,8 +4,8 @@ The Pi BADGEr ePaper Weather Station is a simple, self-updating, weather station
 
 Instructions for Use
 --------------------
-A complete run-down on how to use these files, and how to get this project running on your Pi/BADGEr can be found on my website.  
-*LINK COMING SOON*
+A complete run-down on how to use these files, and how to get this project running on your Pi/BADGEr can be found on my website.    
+http://www.jeremyblum.com/2014/01/06/epaper-weather-station/
 
 Relevant Links and Libraries
 ----------------------------
