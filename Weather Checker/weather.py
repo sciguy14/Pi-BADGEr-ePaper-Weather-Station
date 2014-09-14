@@ -39,7 +39,7 @@ off_command      = '.a:3:0,0,0,0,500'   # If there are no special weather alerts
 
 use_BADGEr       = True
 BADGEr_dev       = '/dev/ttyUSB1'
-BADGEr_baud_rate = 19200
+BADGEr_baud_rate = 9600
 
 
 ####################################
@@ -115,7 +115,7 @@ else:
 #Control ePaper
 if use_BADGEr:
     print "Connecting to BADGEr..."
-    ePaper = serial.Serial(BADGEr_dev, 19200)
+    ePaper = serial.Serial(BADGEr_dev, BADGEr_baud_rate)
 
     print "Setting Image,",
     ePaper.write(image)
