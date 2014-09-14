@@ -43,7 +43,7 @@ A  Update display
 
 void setup()
 {
-  Serial.begin(19200);
+  Serial.begin(9600);
   ereader.setup(EPD_2_7);
 }
 

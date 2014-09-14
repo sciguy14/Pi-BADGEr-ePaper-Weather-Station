@@ -16,30 +16,27 @@
 # express or implied.  See the License for the specific language
 # governing permissions and limitations under the License.
 
-# Note: DTR must be disabled for both USB serial ports.
-# You can make the raspberry pi do this on boot by adding
-# the following lines to /etc/rc.local:
-# stty -F /dev/ttyUSB0 -hupcl
-# stty -F /dev/ttyUSB1 -hupcl
-
 ###########################
 ## CONFIGURATION OPTIONS ##
 ###########################
 
-use_SUNN         = True                 # Enable updating SUNN (or compatible light display)
-SUNN_dev         = '/dev/ttyUSB0'       # SUNN USB-Serial Device Location
-SUNN_baud_rate   = 57600                # SUNN USB-Serial Baud Rate
-rain_trigger     = 30                   # Above this percentage probably of precipitation, show the rain alert
-rain_command     = '.a:3:0,0,10,0,500'  # Send this command when there is a rain alert
-heat_trigger     = 75                   # Above this high (F) temperature, show the heat alert
-heat_command     = '.a:3:10,0,0,0,500'  # Send this command when there is a heat alert
-cold_trigger     = 50                   # Below this low (F) temperature, show the cold alert
-cold_command     = '.a:3:0,0,0,10,500'  # Send this command when there is a cold alert
-off_command      = '.a:3:0,0,0,0,500'   # If there are no special weather alerts, send this command
+use_SUNN           = True                 # Enable updating SUNN (or compatible light display)
+SUNN_dev           = '/dev/ttyUSB0'       # SUNN USB-Serial Device Location
+SUNN_baud_rate     = 57600                # SUNN USB-Serial Baud Rate
+rain_trigger       = 30                   # Above this percentage probably of precipitation, show the rain alert
+rain_command       = '.a:3:0,0,10,0,500'  # Send this command when there is a rain alert
+heat_trigger       = 75                   # Above this high (F) temperature, show the heat alert
+heat_command       = '.a:3:10,0,0,0,500'  # Send this command when there is a heat alert
+cold_trigger       = 50                   # Below this low (F) temperature, show the cold alert
+cold_command       = '.a:3:0,0,0,10,500'  # Send this command when there is a cold alert
+off_command        = '.a:3:0,0,0,0,500'   # If there are no special weather alerts, send this command
 
-use_BADGEr       = True
-BADGEr_dev       = '/dev/ttyUSB1'
-BADGEr_baud_rate = 9600
+use_BADGEr         = True                 # Enable the BADGEr
+BADGEr_dev         = '/dev/ttyUSB1'       # BADGEr USB-Serial Device Location
+BADGEr_baud_rate   = 9600                 # BADGEr USB-Serial Baud Rate
+write_delay        = 1.0                  # Delay between Serial Write Operations
+
+serial_setup_local = True                 # True for Serial config in this file, False if you're doing it at boot
 
 
 ####################################
@@ -66,6 +63,22 @@ else:
 
 print "Got weather for " + yahoo['location']['city'] + ", " + yahoo['location']['region'] + "!"
 
+# Setup Serial Interfaces (Don't Reset on Connect)
+# Note: DTR must be disabled for both USB serial ports.
+# Make the raspberry pi do this on boot by adding these lines to /etc/rc.local:
+# stty -F /dev/ttyUSB0 -hupcl
+# stty -F /dev/ttyUSB1 -hupcl
+# We can also do it directly in this file.
+if serial_setup_local:
+    from subprocess import call
+    if use_SUNN:
+        print "Setting up SUNN Serial port...",
+        call(["stty", "-F", SUNN_dev, "-hupcl"])
+        print "Done!"
+    if use_BADGEr:
+        print "Setting up BADGEr Serial port...",
+        call(["stty", "-F", BADGEr_dev, "-hupcl"])
+        print "Done!"
 
 #Generate Sunn Lighting Commands
 if use_SUNN:
@@ -120,56 +133,56 @@ if use_BADGEr:
     print "Setting Image,",
     ePaper.write(image)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Title,",
     ePaper.write(title)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Location,",
     ePaper.write(location)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Date,",
     ePaper.write(date)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Sunrise Time,",
     ePaper.write(sunrise)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Sunset Time,",
     ePaper.write(sunset)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Conditions,",
     ePaper.write(conditions)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Precipitation,",
     ePaper.write(precip)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Low,",
     ePaper.write(low)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "and High."
     ePaper.write(high)
     sys.stdout.flush()
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     print "Updating Screen...",
     ePaper.write(commit)
-    time.sleep(.6)
+    time.sleep(write_delay)
 
     ePaper.close()
     print "Done!"
