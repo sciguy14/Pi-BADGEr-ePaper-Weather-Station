@@ -131,57 +131,57 @@ if use_BADGEr:
     ePaper = serial.Serial(BADGEr_dev, BADGEr_baud_rate)
 
     print "Setting Image,",
-    ePaper.write(image)
+    ePaper.write(str(image))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Title,",
-    ePaper.write(title)
+    ePaper.write(str(title))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Location,",
-    ePaper.write(location)
+    ePaper.write(str(location))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Date,",
-    ePaper.write(date)
+    ePaper.write(str(date))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Sunrise Time,",
-    ePaper.write(sunrise)
+    ePaper.write(str(sunrise))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Sunset Time,",
-    ePaper.write(sunset)
+    ePaper.write(str(sunset))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Conditions,",
-    ePaper.write(conditions)
+    ePaper.write(str(conditions))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Precipitation,",
-    ePaper.write(precip)
+    ePaper.write(str(precip))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Low,",
-    ePaper.write(low)
+    ePaper.write(str(low))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "and High."
-    ePaper.write(high)
+    ePaper.write(str(high))
     sys.stdout.flush()
     time.sleep(write_delay)
 
     print "Updating Screen...",
-    ePaper.write(commit)
+    ePaper.write(str(commit))
     time.sleep(write_delay)
 
     ePaper.close()
